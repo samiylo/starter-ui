@@ -5,6 +5,22 @@ import './App.css';
 
 function App() {
   const [message, setMessage] = useState('');
+  const [weather, setWeather] = useState('');
+
+  const fetchWeather = async () => {
+    try {
+      const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=29.7604&longitude=-95.3698&current=temperature_2m,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const { temperature_2m, wind_speed_10m } = data.current;
+      setWeather(`Temperature: ${temperature_2m}°C, Wind Speed: ${wind_speed_10m} km/h`);
+    } catch (error) {
+      console.error('Error fetching weather:', error);
+    }
+  };
+  
 
   const fetchMessage = async () => {
     try {
@@ -34,6 +50,9 @@ function App() {
         </a>
         <button  className="btn btn-primary" onClick={fetchMessage}>Ask Nesha</button>
         {message && <p>{message}</p>}
+        <button className="btn btn-secondary" onClick={fetchWeather}>Get Houston Weather</button>
+{weather && <p>{weather}</p>}
+
       </header>
     </div>
   );

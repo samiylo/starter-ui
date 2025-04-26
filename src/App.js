@@ -48,9 +48,9 @@ function App() {
         >
           
         </a>
-        <button  className="btn btn-primary" onClick={fetchMessage}>Ask Nesha</button>
+        <button  className="btn btn-primary" role="button" aria-pressed="true" onClick={fetchMessage}>Ask Nesha</button>
         {message && <p>{message}</p>}
-        <button className="btn btn-secondary" onClick={fetchWeather}>Get Houston Weather</button>
+        <button className="btn btn-success" onClick={fetchWeather}>Get Houston Weather</button>
 {weather && <p>{weather}</p>}
 
       </header>
